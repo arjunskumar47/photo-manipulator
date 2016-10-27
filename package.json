@@ -1,0 +1,20 @@
+{
+  "name": "bottr",
+  "version": "1.0.0",
+  "description": "A task given by a company called bottr for client side image manipulation. ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomanator/photo-manipulator.git"
+  },
+  "author": "Vikram Thomas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thomanator/photo-manipulator/issues"
+  },
+  "homepage": "https://github.com/thomanator/photo-manipulator#readme"
+}
