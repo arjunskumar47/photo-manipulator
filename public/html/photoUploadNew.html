@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>photo manipulator</title>
 	<link rel="stylesheet" href="/styles/darkroom.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
@@ -38,9 +38,8 @@
   	<script type="text/javascript">
 		var base64Val
 
-      	function yourFunction(data) {      	
-      		base64Val = data
-      		console.log('Successfully uploaded the file',base64Val)
+      	function saveFunction(data) {      	
+      		base64Val = data      		
     	}
 
       	function readURL(input) {
@@ -69,7 +68,7 @@
 					          callback: function() {
 					            this.darkroom.selfDestroy(); // Cleanup
 					            var newImage = dkrm.sourceCanvas.toDataURL();
-					            yourFunction(newImage) 
+					            saveFunction(newImage) 
 					          }
 					        }
 					     }		     		      

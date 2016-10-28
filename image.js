@@ -8,7 +8,7 @@ module.exports = function(req,res) {
 		data:null
 	}
 	var obj = req.body
-	if(obj.base64Text==undefined||!obj.base64Text||obj.base64Text.length==0) {
+	if(obj.base64Text==undefined||obj.base64Text.length==0) {
 		resJson['status'] = 'success',
 		resJson['message'] = 'Remember to save the image before submitting'
 		return resJson(resJson)
@@ -18,7 +18,7 @@ module.exports = function(req,res) {
 		resJson['message'] = 'Enter the image name before submitting'	
 		return resJson(resJson)
 	}
-	console.log('Coming here')
+
 	var splitArray = obj.base64Text.split(',')
 	var dataBuffer = new Buffer(splitArray[1],'base64')
 	fs.writeFile(config.dir+'/public/uploads/'+obj.imageName+'.png',dataBuffer,function(err) {
