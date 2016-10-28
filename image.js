@@ -18,6 +18,7 @@ module.exports = function(req,res) {
 		resJson['message'] = 'Enter the image name before submitting'	
 		return resJson(resJson)
 	}
+	console.log('Coming here')
 	var splitArray = obj.base64Text.split(',')
 	var dataBuffer = new Buffer(splitArray[1],'base64')
 	fs.writeFile(config.dir+'/public/uploads/'+obj.imageName+'.png',dataBuffer,function(err) {
