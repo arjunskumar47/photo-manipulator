@@ -1,7 +1,10 @@
 # photo-manipulator
-A poc for client side image manipulation 
+A poc for client side image manipulation using darkroomjs and fabricjs 
 
-Steps to run the program: 
+darkroomjs repo - https://github.com/MattKetmo/darkroomjs
+darkroomjs demo - https://mattketmo.github.io/darkroomjs/
+
+Steps to run the server: 
 
 1. Clone or fetch the repo 
 2. Run npm install to install the dependencies 
@@ -16,3 +19,4 @@ Paths:
 2. localhost:3000/upload
    method - post
    function - saves the manipulated image in the /public/uploads folder 
+
