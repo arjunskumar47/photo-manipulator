@@ -28,7 +28,7 @@ module.exports = function(req,res) {
 		}
 		else {
 			resJson['status'] = 'success',
-			resJson['message'] = 'You can access your image at'+'localhost:3000/uploads/'+obj.imageName+'.png'
+			resJson['message'] = 'You can access your image at '+'localhost:3000/uploads/'+obj.imageName+'.png'
 			return res.json(resJson)
 		}
 	})

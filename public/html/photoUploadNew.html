@@ -36,70 +36,71 @@
    	<script src="/js/fabric.js"></script>
   	<script src="/js/darkroom.js"></script>
   	<script type="text/javascript">
-		var base64Val
+			var base64Val
 
-      	function saveFunction(data) {      	
-      		base64Val = data      		
-    		}
+    	function saveFunction(data) {      	
+    		base64Val = data      		
+  		}
 
-      	function readURL(input) {
-	        if (input.files && input.files[0]) {
-	            var reader = new FileReader();
-	            reader.onload = function (e) {	            	
-                $('#target')
-                    .attr('src', e.target.result)
-                var dkrm = new Darkroom('#target', {	      
-									minWidth: 100,
-									minHeight: 100,
-									maxWidth: 600,
-									maxHeight: 500,
-			    				ratio: 4/3,
-			    				backgroundColor: '#000',	      
-		        			plugins: {	        
-						        crop: {
-						          quickCropKey: 67 //key "c"
-						          //minHeight: 50,
-						          //minWidth: 50,
-						          //ratio: 1
-						        },
-						        save: {
-						          callback: function() {
-						            this.darkroom.selfDestroy(); // Cleanup
-						            var newImage = dkrm.sourceCanvas.toDataURL();
-						            saveFunction(newImage) 
-						          }
-						        }
-						     	}		     		      
-			    			})	               
-	            }
-	            reader.readAsDataURL(input.files[0]);
-	        }
-	   }
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {	            	
+              $('#target')
+                  .attr('src', e.target.result)
+              var dkrm = new Darkroom('#target', {	      
+								minWidth: 100,
+								minHeight: 100,
+								maxWidth: 600,
+								maxHeight: 500,
+		    				ratio: 4/3,
+		    				backgroundColor: '#000',	      
+	        			plugins: {	        
+					        crop: {
+					          quickCropKey: 67 //key "c"
+					          //minHeight: 50,
+					          //minWidth: 50,
+					          //ratio: 1
+					        },
+					        save: {
+					          callback: function() {
+					            this.darkroom.selfDestroy(); // Cleanup
+					            var newImage = dkrm.sourceCanvas.toDataURL();
+					            saveFunction(newImage) 
+					          }
+					        }
+					     	}		     		      
+		    			})	               
+            }
 
-	  document.getElementById('submit').addEventListener('click',function() {	   	
-	  	if(base64Val==undefined) {
-   			document.getElementById('resMessage').innerHTML = 'Remember to save the image before submission'
-   		}
-   		else if(document.getElementById('imageName').value==undefined || document.getElementById('imageName').value.length==0) {
-   			document.getElementById('resMessage').innerHTML = 'Kindly enter a name for the new image'	
-   		}
-   		else {
-   			var body = {
-	   			'base64Text': base64Val,
-	   			'imageName': document.getElementById('imageName').value
+            reader.readAsDataURL(input.files[0]);
+        }
+	    }
+
+		  document.getElementById('submit').addEventListener('click',function() {	   	
+		  	if(base64Val==undefined) {
+	   			document.getElementById('resMessage').innerHTML = 'Remember to save the image before submission'
 	   		}
-	   		$.ajax({
-		        url : "http://localhost:3000/upload",
-		        type: "POST",
-		        data: JSON.stringify(body),
-		        contentType: "application/json",
-		        dataType   : "json",
-		        success    : function(r){
-		            document.getElementById('resMessage').innerHTML = r.message
-		        }
-		    });	
-   		}	   		
-	  })
+	   		else if(document.getElementById('imageName').value==undefined || document.getElementById('imageName').value.length==0) {
+	   			document.getElementById('resMessage').innerHTML = 'Kindly enter a name for the new image'	
+	   		}
+	   		else {
+	   			var body = {
+		   			'base64Text': base64Val,
+		   			'imageName': document.getElementById('imageName').value
+		   		}
+		   		$.ajax({
+			        url : "http://localhost:3000/upload",
+			        type: "POST",
+			        data: JSON.stringify(body),
+			        contentType: "application/json",
+			        dataType   : "json",
+			        success    : function(r){
+			            document.getElementById('resMessage').innerHTML = r.message
+			        }
+			    });	
+	   		}	   		
+		  })
 
   	</script>  	
 </body>
