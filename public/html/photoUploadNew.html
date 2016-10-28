@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="/styles/darkroom.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+	<style type="text/css">
+		body {
+			padding: 10px;	
+		}
+	</style>
+</head>
+
+
+<body>
+	<br/>
+	<br/>	
+	 <div class="figure-wrapper">
+      <figure class="image-container target"  id='imageContainer'>
+        <img class='targetImg img-responsive' src='#' alt="Your Image Goes Here" id="target"></img>		    
+      </figure>
+    </div> 
+    <br/>
+    <br/>
+    <input type='file' onchange="readURL(this)" /> 
+    <br/>
+    <br/>
+    Image name <input type = 'text' id = 'imageName'>       
+    <br/>
+    <br/>
+    <button id = 'submit' class='btn btn-primary'>Submit</button>
+    <br/>
+    <br/>
+    <p id = 'resMessage'></p>
+   	<script src="/js/fabric.js"></script>
+  	<script src="/js/darkroom.js"></script>
+  	<script type="text/javascript">
+		var base64Val
+
+      	function yourFunction(data) {      	
+      		base64Val = data
+      		console.log('Successfully uploaded the file',base64Val)
+    	}
+
+      	function readURL(input) {
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+	            reader.onload = function (e) {
+	            	console.log('coming inside onload')
+	            	console.log($('#target'))
+	                $('#target')
+	                    .attr('src', e.target.result)
+	                var dkrm = new Darkroom('#target', {	      
+						minWidth: 100,
+						minHeight: 100,
+						maxWidth: 600,
+						maxHeight: 500,
+				    	ratio: 4/3,
+				    	backgroundColor: '#000',	      
+			        	plugins: {	        
+					        crop: {
+					          quickCropKey: 67 //key "c"
+					          //minHeight: 50,
+					          //minWidth: 50,
+					          //ratio: 1
+					        },
+					        save: {
+					          callback: function() {
+					            this.darkroom.selfDestroy(); // Cleanup
+					            var newImage = dkrm.sourceCanvas.toDataURL();
+					            yourFunction(newImage) 
+					          }
+					        }
+					     }		     		      
+				    })	               
+	            }
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	   }
+
+	   document.getElementById('submit').addEventListener('click',function() {	   	
+	   		if(base64Val==undefined) {
+	   			document.getElementById('resMessage').innerHTML = 'Remember to save the image before submission'
+	   		}
+	   		else if(document.getElementById('imageName').value==undefined || document.getElementById('imageName').value.length==0) {
+	   			document.getElementById('resMessage').innerHTML = 'Kindly enter a name for the new image'	
+	   		}
+	   		else {
+	   			var body = {
+		   			'base64Text': base64Val,
+		   			'imageName': document.getElementById('imageName').value
+		   		}
+		   		$.ajax({
+			        url : "http://localhost:3000/upload",
+			        type: "POST",
+			        data: JSON.stringify(body),
+			        contentType: "application/json",
+			        dataType   : "json",
+			        success    : function(r){
+			            document.getElementById('resMessage').innerHTML = r.message
+			        }
+			    });	
+	   		}	   		
+	   })
+
+  	</script>  	
+</body>
+</html>
