@@ -4,8 +4,8 @@ A poc for client side image manipulation
 Steps to run the program: 
 
 1. Clone or fetch the repo 
-2. run npm install to install the dependencies 
-3. run node server.js to start the server 
+2. Run npm install to install the dependencies 
+3. Run node server.js to start the server 
 
 
 Paths:
